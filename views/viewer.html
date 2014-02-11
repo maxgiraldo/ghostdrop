@@ -1,0 +1,31 @@
+<!-- viewer.html -->
+{% extends "layout.html" %}
+
+{% block title %}
+<title>GhostDrop - View Document</title>
+{% endblock %}
+
+{% block content %}
+  <div class="well bg-info">
+    <h3 id="doc-name">{{path_name}}</h3>
+    <input type="hidden" id="doc_id" data-value="{{doc_id}}">
+    <input type="hidden" id="reader_email" data-value="{{reader_email}}">
+    <input type="hidden" id="uploader_email" data-value="{{uploader_email}}">
+
+		<span id="countdown"></span>
+		<div style="clear:both"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+  <object width="100%" height="900px" data="{{path_name}}" type="application/pdf"></object>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.timer.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+{% endblock %}
