@@ -5,7 +5,8 @@ var app = angular.module('ghostdropApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.router'
+  'ui.router',
+  'angularFileUpload'
 ]);
 
 

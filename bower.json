@@ -11,7 +11,8 @@
     "angular-cookies": "1.2.11",
     "angular-sanitize": "1.2.11",
     "angular-route": "1.2.11",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "angular-file-upload": "~0.4.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.11",
