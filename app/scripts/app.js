@@ -4,17 +4,23 @@ var app = angular.module('ghostdropApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.router'
 ]);
-  .config(function ($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
 
-    $locationProvider.html5Mode(true);
-  });
+
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+  // $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+    .state('landing_page', {
+      url: '/',
+      templateUrl: 'partials/main',
+      controller: 'MainCtrl'
+    })
+      .state('landing_page.sub_page', {
+        url: 'sub_page'
+      })
+
+});
