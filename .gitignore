@@ -5,4 +5,5 @@ public
 app/bower_components
 heroku
 /views
+app/views/documents
 dist
