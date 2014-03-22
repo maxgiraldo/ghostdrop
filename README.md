@@ -1,4 +1,0 @@
-legalhackathon
-==============
-
-legal hackathon
