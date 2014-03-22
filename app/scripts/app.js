@@ -11,7 +11,7 @@ var app = angular.module('ghostdropApp', [
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 
-  // $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('landing_page', {
@@ -19,8 +19,5 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'
     })
-      .state('landing_page.sub_page', {
-        url: 'sub_page'
-      })
 
 });
