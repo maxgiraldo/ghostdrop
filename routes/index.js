@@ -62,7 +62,6 @@ exports.create_doc = function(req, res){
           pass: "EoaalHbNVAhauz-W5CcmrA"
       }
   });
-
   // setup e-mail data with unicode symbols
   var mailOptions = {
       from: "sender@ghostdrop.io", // sender address
@@ -74,7 +73,6 @@ exports.create_doc = function(req, res){
             +'<p>To access it, click <b><a href="' + global_hostname + '/auth/'+p._id.valueOf()+'">here</a></b>'
   }
   console.log(global_hostname + "/auth/" + p._id.valueOf());
-
   // send mail with defined transport object
   smtpTransport.sendMail(mailOptions, function(error, response){
       if(error){
@@ -83,49 +81,24 @@ exports.create_doc = function(req, res){
           console.log("Message sent: " + response.message);
       }
   });
-
   res.redirect('/success');
 }
-
 
 exports.success = function(req, res){
   res.render('success');
 }
 
-
-exports.create_user = function(req, res){
-  var first_name = req.body.first_name;
-  var last_name = req.body.last_name;
-  var email = req.body.email;
-  var username = req.body.username;
-  var password = req.body.password;
-  var u = new models.User()
-  u.save();
-  res.render('index')
-}
-
-// exports.enter_password = function(req, res){
-//   var id = req.params.id
-//   res.render('index', {id: id})
-// }
-
 exports.enter_password = function(req, res){
   var password = req.body.password;
   var id = req.body.id;
-
-
   models.File.findOne({ _id: id }, function (err, doc) {
-
   	if (err) {
   		res.redirect(global_hostname + '/timeout');
   	}
     if (!doc.validPassword(password)) {
       res.redirect('/');
-    }
-    else{
-      // doc.path('expired_by').expires(doc[exist_time]);//change string to number value
-      // doc.save();;
-      res.render('viewer', {"path_name" : doc.path_name, "doc_id" : id, "uploader_email": doc.uploader_email, "reader_email": doc.reader_email});//we have to offer up something that the show page would use
+    } else{
+      res.render('viewer', {"path_name" : doc.path_name, "doc_id" : id, "uploader_email": doc.uploader_email, "reader_email": doc.reader_email});
     }
   });
 };
@@ -160,7 +133,6 @@ exports.notify = function(req, res) {
           pass: "legalhackathon"
       }
   });
-
   // setup e-mail data with unicode symbols
   var mailOptions = {
       from: "uploader.bot.314159@gmail.com", // sender address
@@ -181,18 +153,38 @@ exports.notify = function(req, res) {
   res.json({});
 }
 
+exports.new_user = function(req, res){
+  res.render('new_user');
+}
 
+exports.create_user = function(req, res, callback){
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var email = req.body.email;
+  var username = req.body.username;
+  var password = req.body.password;
+  var u = new models.User({"first_name": first_name, "last_name": last_name, "email": email,  "username": username, "password": password, "documents": []});
+  u.save();
+  callback(u)
+};
+//so what i could do here is simulate a submit of
+//username and password and then direct to the user_page
 
+exports.auto_user_page = function(req, res){
+  var username = req.params.username;
+  models.User.findOne({username: username}, function(err, user){
+    res.render('user_page', {username: user.username, first_name: user.first_name, last_name: user.last_name, documents: user.documents});
+  })
+};//auto is needed to automatically redirect a newly created
+//user to log in to the page
 
+exports.user_page = function(req, res){
+  var username = req.body.username;
+  var password = req.body.password;
 
-
-
-
-
-
-
-
-
-
-
-
+  models.User.findOne({username: username, password: password}, function(err, user){
+    res.render('user_page', {username: user.username, first_name: user.first_name, last_name: user.last_name, documents: user.documents})
+  })
+}
+//this page should simply show the list of documents
+//available to the user

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content%}
+<div class = "TJcontent">
+  <div class="container">
+    <div class="starter-template">
+      <h1>{{content.url_name}}</h1>
+    </div>
+    <form action="/create_user" method="post">
+      <div>
+          <label>Username:</label>
+          <input type="text" name="username"/>
+      </div>
+      <div>
+          <label>Password:</label>
+          <input type="password" name="password"/>
+      </div>
+      <div>
+          <label>First Name:</label>
+          <input type="text" name="first_name"/>
+      </div>
+      <div>
+          <label>Last Name:</label>
+          <input type="text" name="last_name"/>
+      </div>
+      <div>
+          <label>Email:</label>
+          <input type="text" name="email"/>
+      </div>
+      <div>
+          <input type="submit" value="Create"/>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock%}
